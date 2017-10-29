@@ -1,11 +1,12 @@
 import React from 'react';
 import {Route, Switch, Redirect } from 'react-router';
-import Main from 'containers/Main.jsx';
+import Costs from 'containers/Costs.jsx';
+import Layout from 'containers/Layout.jsx';
 
 export default () => (
-
-    <Switch>
-        <Route exact path="/" component={Main}/>
-    </Switch>
-
+    <Layout>
+        <Switch>
+            <Route exact path="/" component={Costs}/>
+        </Switch>
+    </Layout>
 );

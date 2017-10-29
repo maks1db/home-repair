@@ -1,0 +1,19 @@
+.buttons {
+    position: relative;
+    left: 14px;
+    button {
+        position: fixed;
+        i {
+            font-size: 23px !important;
+        }
+    }
+    button:first-child {
+        bottom: 125px !important;
+    }
+    button {
+        bottom: 70px;  
+    }
+    button:last-child {
+        bottom: 14px !important;
+    }
+}

@@ -8,6 +8,7 @@ const isDevelopment = NODE_ENV === 'development';
 
 const plugins = [
     new webpack.NamedModulesPlugin(),
+    new webpack.IgnorePlugin(/\.\/locale$/),
     new webpack.DefinePlugin({
         'process.env': {
             BROWSER: JSON.stringify(true),
@@ -17,7 +18,13 @@ const plugins = [
     new HtmlWebpackPlugin({
         template: 'src/ejs/index.ejs',
         filename: '../../index.html'
+    }),
+    new webpack.ProvidePlugin({
+        $: 'jquery/dist/jquery.min.js',
+        jQuery: 'jquery/dist/jquery.min.js',
+        'window.jQuery': 'jquery/dist/jquery.min.js'
     })
+
 ];
 
 if (!isDevelopment){

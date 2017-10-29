@@ -1,6 +1,6 @@
 {
   "name": "home-repair",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "description": "Ремонт моей квартиры",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "axios": "^0.15.3",
     "body-parser": "^1.18.2",
     "bootstrap": "^3.3.7",
-    "jquery": "^3.2.1",
+    "jquery": "1",
     "camelcase": "^4.1.0",
     "express": "^4.15.3",
     "font-awesome": "^4.7.0",
@@ -29,7 +29,12 @@
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "immutable": "4.0.0-rc.9",
+    "redux-form": "^7.1.2",
+    "react-input-mask": "^1.0.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47",
+    "moment": "^2.19.1"
   },
   "devDependencies": {
     "eslint": "^4.7.0",
