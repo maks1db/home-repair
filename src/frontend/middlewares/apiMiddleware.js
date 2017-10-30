@@ -106,6 +106,16 @@ const apiMiddleware = store => next => action => {
             });
         
     }
+
+    if (action.type === constants.COPY_FILTER) {
+        const state = store.getState();
+        
+        store.dispatch({
+            type: constants.SET_FILTER,
+            data: state.fom.filter.values
+        });
+        
+    }
     next(action);
 
 };

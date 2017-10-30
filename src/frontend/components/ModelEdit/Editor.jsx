@@ -56,7 +56,7 @@ export default class Editor extends React.Component {
                                 type="button" 
                                 className="btn btn-primary"
                                 onClick={() => onSave()}
-                            >Сохранить изменения</button>
+                            >Сохранить</button>
                         </div>
                     </div>
                 </div>

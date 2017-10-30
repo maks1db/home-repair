@@ -6,7 +6,8 @@ const initialState = Map({
         open: false
     },
     mainModel: {},
-    items: {isFetching: false, data: []}
+    items: {isFetching: false, data: []},
+    filter: {}
 });
 
 export default (state = initialState, action) => {
@@ -15,6 +16,8 @@ export default (state = initialState, action) => {
         return setIn(state, ['modal', 'open'], action.value);
     case constants.SET_MAIN_MODEL: 
         return state.set('mainModel', action.model);
+    case constants.SET_FILTER: 
+        return state.set('filter', action.data);
     case constants.ITEMS_RECEIVE:
         return state.set('items', {
             isFetching: false,

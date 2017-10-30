@@ -1,4 +1,6 @@
 import React from 'react';
+import FilterForm from './FilterForm.jsx';
+import Button from 'Controls/Button.jsx';
 
 export default class Filters extends React.PureComponent {
 
@@ -19,7 +21,14 @@ export default class Filters extends React.PureComponent {
                     </div>
                     <div id="collapseOne" className="panel-collapse collapse">
                         <div className="panel-body">
-                            Фильтры
+                            <FilterForm 
+                                fields={this.props.fields}
+                            />
+                            <div style={{textAlign:'right'}}>
+                                <Button 
+                                    option="success"
+                                >Применить</Button>
+                            </div>
                         </div>
                     </div>
                 </div>

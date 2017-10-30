@@ -8,7 +8,8 @@ export default (props) => (
         <label >
             <input 
                 type="checkbox" 
-                checked={props.defaultValue}
+                checked={props.input.value}
+                onChange={(e) => props.input.onChange(e.target.checked)}
                 {...deleteProps(props, 'errorMessage')} /> {props.label}
         </label>
     </div>

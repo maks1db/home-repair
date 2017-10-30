@@ -13,3 +13,9 @@ export const setMainModel = (model) => {
         model
     };
 };
+
+export const copyFilter = () => {
+    return {
+        type: constants.COPY_FILTER
+    };
+};

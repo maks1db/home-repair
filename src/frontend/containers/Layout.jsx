@@ -59,7 +59,9 @@ export default class Layout extends Component {
                 <Nav />
                 <Content>
                     <h3>{title}</h3>
-                    <Filters />
+                    {modelFields &&<Filters 
+                        fields={modelFields}
+                    />}
                     {modelFields && 
                     <Table 
                         fields={modelFields}
