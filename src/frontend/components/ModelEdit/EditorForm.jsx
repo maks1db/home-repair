@@ -43,7 +43,7 @@ let EditorForm = props => {
                                 name={x}
                                 label={fields[x].title}
                                 component={component(fields[x])}
-                                defaultValue={values === undefined ? fields[x].defaultValue : values[x]}
+                                // defaultValue={values === undefined ? fields[x].defaultValue : values[x]}
                                 {...type(fields[x])}
                             />
                         </Col>

@@ -82,6 +82,30 @@ const apiMiddleware = store => next => action => {
             });
     }
 
+    if (action.type === constants.ITEM_DELETE) {
+
+        const state = store.getState();
+        const model = state.app.get('mainModel');
+
+        const crud = new api(`crud/${model.name}`); 
+
+        crud.delete(state.form.model.values._id)
+            .then(() => {
+                store.dispatch({
+                    type: constants.ITEM_DELETE_COMPLETE,
+                }); 
+
+                store.dispatch({
+                    type: constants.MODAL_STATE,
+                    value: false
+                });
+
+                store.dispatch({
+                    type: constants.ITEMS_REQUEST
+                });
+            });
+        
+    }
     next(action);
 
 };

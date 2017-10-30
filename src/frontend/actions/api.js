@@ -18,6 +18,12 @@ export const get = () => {
     };
 };
 
+export const del = (value) => {
+    return {
+        type: constants.ITEM_DELETE, value
+    };  
+};
+
 export const getItem = (value) => {
     return {
         type: constants.ITEM_REQUEST,

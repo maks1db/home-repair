@@ -8,7 +8,8 @@ import EditorForm from 'ModelEdit/EditorForm.jsx';
 import Table from 'ModelView/Table.jsx';
 import {
     save,
-    getItem 
+    getItem,
+    del 
 } from 'actions/api';
 import Filters from 'ModelView/Filters.jsx';
 import { modalState } from 'actions/appActions';
@@ -28,7 +29,8 @@ function mapDispatchToProps(dispatch, ownProps) {
     return {
         onChangeModalState: (value) => dispatch(modalState(value)),
         onSave: () => dispatch(save()),
-        onGetItem: (id) => dispatch(getItem(id))
+        onGetItem: (id) => dispatch(getItem(id)),
+        onDelete: () => dispatch(del())
     };
 }
 
@@ -48,7 +50,8 @@ export default class Layout extends Component {
             onSave,
             items,
             onGetItem,
-            form, model
+            form, model,
+            onDelete
         } = this.props;
 
         return (
@@ -71,6 +74,7 @@ export default class Layout extends Component {
                     open={modalOpen}  
                     title={title} 
                     onSave={onSave}
+                    onDelete={onDelete}
                 >
                     {(modelFields && modalOpen) && <EditorForm 
                         fields={modelFields}

@@ -22,7 +22,8 @@ export default class Editor extends React.Component {
             onChangeModalState,
             children,
             title,
-            onSave
+            onSave,
+            onDelete
         } = this.props;
         return (
             <div ref={(e) => this.modal = e} className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -40,6 +41,12 @@ export default class Editor extends React.Component {
                             { children }
                         </div>
                         <div className="modal-footer">
+                            <button 
+                                type="button" 
+                                className="btn btn-danger" 
+                                onClick={() => onDelete()}   
+                                style={{float: 'left'}}
+                            >Удалить</button>
                             <button 
                                 type="button" 
                                 className="btn btn-default" 
