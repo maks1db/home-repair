@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import model from 'models/costs';
 import { setMainModel } from 'actions/appActions';
+import { get } from 'actions/api';
 import DateTimePicker from 'Controls/DateTimePicker.jsx';
 
 function mapStateToProps(state) {
@@ -9,7 +10,8 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch, ownProps) {
     return {
-        onSetModel: () => dispatch(setMainModel(model))
+        onSetModel: () => dispatch(setMainModel(model)),
+        onGet: () => dispatch(get())
     };
 }
 
@@ -21,15 +23,13 @@ export default class Main extends Component {
 
     componentWillMount() {
         this.props.onSetModel();
+        this.props.onGet();
     }
 
     render() {
 
         return (
             <div>
-                <DateTimePicker 
-                    label="Датушка"
-                />
             </div>
         );
     }

@@ -15,11 +15,16 @@ export default class DateTimePicker extends React.Component {
     }
 
     componentDidMount() {
+        var a = 1;
+        const {
+            input: { value, onChange } 
+        } = this.props;
+
         $(this.element).datetimepicker({
-            callback: function(value) {
-                console.log(value);
+            callback: function(date) {
+                onChange(date);
             },
-            defaultDate: new Date(),
+            defaultDate: value,
             format: 'DD.MM.YYYY'
         });
     }

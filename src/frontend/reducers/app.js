@@ -5,7 +5,8 @@ const initialState = Map({
     modal: {
         open: false
     },
-    mainModel: {}
+    mainModel: {},
+    items: {isFetching: false, data: []}
 });
 
 export default (state = initialState, action) => {
@@ -14,6 +15,11 @@ export default (state = initialState, action) => {
         return setIn(state, ['modal', 'open'], action.value);
     case constants.SET_MAIN_MODEL: 
         return state.set('mainModel', action.model);
+    case constants.ITEMS_RECEIVE:
+        return state.set('items', {
+            isFetching: false,
+            data: action.items
+        });
     }
     
     return state;

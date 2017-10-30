@@ -8,17 +8,10 @@ export default ( { onChangeModalState } ) => (
             onClick={() => onChangeModalState(true)}
             mini={true}
             option="primary"
+            data-toggle="tooltip"
+            data-placement="right"
+            title="Добавить новый элемент"
             children={<i className="fa fa-plus" aria-hidden="true"></i>}
-        />
-        <Button 
-            mini={true}
-            option="success"
-            children={<i className="fa fa-pencil-square-o" aria-hidden="true"></i>}
-        />
-        <Button 
-            mini={true}
-            option="danger"
-            children={<i className="fa fa-times" aria-hidden="true"></i>}
         />
     </div>
 );

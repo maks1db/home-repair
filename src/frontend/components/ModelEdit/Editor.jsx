@@ -21,7 +21,8 @@ export default class Editor extends React.Component {
         const {
             onChangeModalState,
             children,
-            title
+            title,
+            onSave
         } = this.props;
         return (
             <div ref={(e) => this.modal = e} className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -44,7 +45,11 @@ export default class Editor extends React.Component {
                                 className="btn btn-default" 
                                 onClick={() => onChangeModalState(false)}   
                             >Закрыть</button>
-                            <button type="button" className="btn btn-primary">Сохранить изменения</button>
+                            <button 
+                                type="button" 
+                                className="btn btn-primary"
+                                onClick={() => onSave()}
+                            >Сохранить изменения</button>
                         </div>
                     </div>
                 </div>

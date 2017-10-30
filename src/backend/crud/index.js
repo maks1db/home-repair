@@ -53,7 +53,8 @@ class CRUD {
         const id = req.params.id;
 
         if (id !== undefined){
-            
+            const obj = this.model.findById(id);
+
             this.model.findById(id).then((obj) => {           
                 res.json(obj.toJSON());
             });

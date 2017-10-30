@@ -22,3 +22,9 @@ a:focus {
     text-decoration: none !important;
     outline: none !important;
 }
+
+tr {
+    td {
+        cursor: pointer;
+    }
+}

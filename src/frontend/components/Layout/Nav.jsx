@@ -15,18 +15,15 @@ export default (props) => (
             </div>
             <div className="collapse navbar-collapse" id="navbar-collapse">
                 <ul className="nav navbar-nav">
-                    <li className="active"><NavLink to="/">Ссылка</NavLink></li>
-                    <li><NavLink to="/">Ссылка</NavLink></li>
+                    <li className="active"><NavLink to="/">Расходы</NavLink></li>
+                    <li><NavLink to="/">Ремонт</NavLink></li>
+                    <li><NavLink to="/">Планирование</NavLink></li>
+                    <li><NavLink to="/">Идеи</NavLink></li>
                     <li className="dropdown">
-                        <NavLink to="/" className="dropdown-toggle" data-toggle="dropdown">Dropdown <b className="caret"></b></NavLink>
+                        <NavLink to="/" className="dropdown-toggle" data-toggle="dropdown">Выплата по долгам<b className="caret"></b></NavLink>
                         <ul className="dropdown-menu">
-                            <li><NavLink to="/">Действие</NavLink></li>
-                            <li><NavLink to="/">Другое действие</NavLink></li>
-                            <li><NavLink to="/">Что-то еще</NavLink></li>
-                            <li className="divider"></li>
-                            <li><NavLink to="/">Отдельная ссылка</NavLink></li>
-                            <li className="divider"></li>
-                            <li><NavLink to="/">Еще одна отдельная ссылка</NavLink></li>
+                            <li><NavLink to="/">Долг Ленке</NavLink></li>
+                            <li><NavLink to="/">Ипотека</NavLink></li>
                         </ul>
                     </li>
                 </ul>

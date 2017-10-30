@@ -54,7 +54,6 @@ class Crud {
     }  
     
     delete(id) {
-        console.log(this.entity);
         return axios.delete(`${API_PREFIX}/${this.entity}/${id}`); 
     }
 }

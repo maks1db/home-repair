@@ -26,9 +26,9 @@ export default class Input extends React.Component {
                 <Control 
                     type="text" 
                     className="form-control" 
-                    defaultValue={value}
+                    value={value}
                     onChange={(e) => onChange(e.target.value) }
-                    {...deleteProps(this.props, ['onValidation','reqired', 'errorMessage'])}
+                    {...deleteProps(this.props, ['onValidation','reqired', 'errorMessage', 'input'])}
                 />
                 {(errorMessage  !== undefined && errorMessage !== false) && (<span className="glyphicon glyphicon-remove form-control-feedback"></span>)}
                 {(errorMessage  !== undefined &&errorMessage !== false) && (<label className={styles.error}>{errorMessage}</label>)}
