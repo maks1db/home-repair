@@ -12,17 +12,21 @@ import {
     del 
 } from 'actions/api';
 import Filters from 'ModelView/Filters.jsx';
-import { modalState } from 'actions/appActions';
+import { modalState,
+    addFilter,
+    changeFilter,
+    deleteFilter
+} from 'actions/appActions';
 
 function mapStateToProps(state) {
-    var a = 1;
     return {
         modalOpen: state.app.get('modal').open,
         title: state.app.get('mainModel').title,
         modelFields: state.app.get('mainModel').fields,
         items: state.app.get('items'),
         form: state.form.model,
-        model: state.app.get('mainModel')
+        model: state.app.get('mainModel'),
+        filterItems: state.app.get('filter').items
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {
@@ -30,7 +34,10 @@ function mapDispatchToProps(dispatch, ownProps) {
         onChangeModalState: (value) => dispatch(modalState(value)),
         onSave: () => dispatch(save()),
         onGetItem: (id) => dispatch(getItem(id)),
-        onDelete: () => dispatch(del())
+        onDelete: () => dispatch(del()),
+        onAddFilter: (key) => dispatch(addFilter(key)),
+        onChangeFilter: (id, key) => dispatch(changeFilter(id, key)),
+        onDeleteFilter: (id) => dispatch(deleteFilter(id))
     };
 }
 
@@ -50,8 +57,13 @@ export default class Layout extends Component {
             onSave,
             items,
             onGetItem,
-            form, model,
-            onDelete
+            form, 
+            model,
+            onDelete,
+            filterItems,
+            onAddFilter,
+            onChangeFilter,
+            onDeleteFilter
         } = this.props;
 
         return (
@@ -59,8 +71,13 @@ export default class Layout extends Component {
                 <Nav />
                 <Content>
                     <h3>{title}</h3>
-                    {modelFields &&<Filters 
+                    {modelFields &&
+                    <Filters 
                         fields={modelFields}
+                        filterItems={filterItems}
+                        onAddFilter={onAddFilter}
+                        onChangeFilter={onChangeFilter}
+                        onDeleteFilter={onDeleteFilter}
                     />}
                     {modelFields && 
                     <Table 

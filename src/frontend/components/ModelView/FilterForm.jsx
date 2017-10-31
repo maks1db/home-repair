@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import Row from 'Controls/Row.jsx';
 import Col from 'Controls/Col.jsx';
 import Checkbox from 'Controls/Checkbox.jsx';
+import Select from 'Controls/Select.jsx';
 
 function type(field) {
 
@@ -32,26 +33,34 @@ function component(field) {
     return Input;
 }
 
+const SelectFields = ( { fields } ) => (
+    <Select>
+        {Object.keys(fields).map( x=>
+            <option value={x}>{fields[x].title}</option>
+        )}
+    </Select>
+);
 
 function Item({ fields, name }) {
-    switch (fields[name].type) {
+
+    const item = fields[name];
+    if (!item) return;
+
+    switch (item.type) {
     case 'date':
         return (
             <div>
                 <Col number={6}>
-                    <Field  
-                        name={`${name}_begin`}
-                        label={`${fields[name].title} (начало)`}
-                        component={component(fields[name])}
-                        {...type(fields[name])}
+                    <SelectFields 
+                        fields={fields}
                     />
                 </Col>
                 <Col number={6}>
                     <Field  
                         name={`${name}_end`}
-                        label={`${fields[name].title} (окончание)`}
-                        component={component(fields[name])}
-                        {...type(fields[name])}
+                        label={`${item.title} (окончание)`}
+                        component={component(item)}
+                        {...type(item)}
                     />
                 </Col>
             </div>    
@@ -63,16 +72,10 @@ function Item({ fields, name }) {
             <div style={{width:'90%', float:'left'}}>
                 <Field  
                     name={name}
-                    label={fields[name].title}
-                    component={component(fields[name])}
-                    // defaultValue={values === undefined ? fields[x].defaultValue : values[x]}
-                    {...type(fields[name])}
-                />
-            </div>
-            <div  style={{width:'10%'}}>
-                <Field  
-                    name={`${name}_active`}
-                    component={Checkbox}
+                    label={item.title}
+                    component={component(item)}
+     
+                    {...type(item)}
                 />
             </div>
         </Col>
@@ -80,18 +83,23 @@ function Item({ fields, name }) {
 }
 
 let FilterForm = props => {
-    const { handleSubmit, fields } = props;
+    const { handleSubmit, fields, filterItems } = props;
     return (
-        <form onSubmit={ handleSubmit }>
+        filterItems && <form onSubmit={ handleSubmit }>
             <Row>
                 {
-                    Object.keys(fields).map(x => (
-                        !fields[x].hide && 
-                        <Item 
-                            key={x}
-                            name={x}
-                            fields={fields}
-                        />
+                    filterItems.map(x => (
+                        <Row>
+
+                            <Col number={6}>
+                                <Item 
+                                    key={x}
+                                    name={x}
+                                    fields={fields}
+                                />
+                            </Col>                        
+                        </Row>
+                        
                     ))
                 }
             </Row>

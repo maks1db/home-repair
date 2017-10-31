@@ -19,3 +19,24 @@ export const copyFilter = () => {
         type: constants.COPY_FILTER
     };
 };
+
+export const addFilter = (key) => {
+    return {
+        type: constants.ADD_FILTER,
+        key
+    };
+};
+
+export const deleteFilter = (id) => {
+    return {
+        type: constants.DELETE_FILTER,
+        id
+    };
+};
+
+export const changeFilter = (id, key) => {
+    return {
+        type: constants.CHANGE_FILTER,
+        id, key
+    };
+};
