@@ -5,10 +5,6 @@ import styles from './Filters.scss';
 
 export default class Filters extends React.PureComponent {
 
-    constructor() {
-        super();
-    }
-
     render() {
         return (
             <div className="panel-group" id="accordion">
@@ -25,9 +21,20 @@ export default class Filters extends React.PureComponent {
                             <FilterForm 
                                 {...this.props}
                             />
-                            <div style={{textAlign:'right'}}>
+                            <div className={styles.filters}>
                                 <Button 
-                                    onClick={() => this.props.onAddFilter()}
+                                    onClick={() => {
+                                        const {fields, filterItems, onAddFilter } = this.props;
+                                        let name = '';
+                                        Object.keys(fields).forEach(x => {
+                                            if (fields[x].hide) return;
+
+                                            if (!filterItems.find(f => f.key === x) && name === '') {
+                                                name = x;
+                                                onAddFilter(name);
+                                            }
+                                        }); 
+                                    }}
                                     option="primary"
 
                                 >Добавить</Button>

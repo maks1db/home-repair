@@ -26,7 +26,7 @@ function mapStateToProps(state) {
         items: state.app.get('items'),
         form: state.form.model,
         model: state.app.get('mainModel'),
-        filterItems: state.app.get('filter').items
+        filterItems: state.app.get('filter').items.toJS()
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {

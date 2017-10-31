@@ -33,10 +33,10 @@ function component(field) {
     return Input;
 }
 
-const SelectFields = ( { fields } ) => (
-    <Select>
+const SelectFields = ( { fields, onChange, value } ) => (
+    <Select label="Поле" onChange={onChange} value={value}>
         {Object.keys(fields).map( x=>
-            <option value={x}>{fields[x].title}</option>
+            !fields[x].hide && <option value={x} key={x}>{fields[x].title}</option>
         )}
     </Select>
 );
@@ -44,15 +44,17 @@ const SelectFields = ( { fields } ) => (
 function Item({ fields, name }) {
 
     const item = fields[name];
-    if (!item) return;
 
     switch (item.type) {
     case 'date':
         return (
-            <div>
+            <Row>
                 <Col number={6}>
-                    <SelectFields 
-                        fields={fields}
+                    <Field  
+                        name={`${name}_begin`}
+                        label={`${item.title} (начало)`}
+                        component={component(item)}
+                        {...type(item)}
                     />
                 </Col>
                 <Col number={6}>
@@ -63,52 +65,52 @@ function Item({ fields, name }) {
                         {...type(item)}
                     />
                 </Col>
-            </div>    
+            </Row>    
         );
     }
     return (
-        <Col number={12}>
-            
-            <div style={{width:'90%', float:'left'}}>
-                <Field  
-                    name={name}
-                    label={item.title}
-                    component={component(item)}
-     
-                    {...type(item)}
-                />
-            </div>
-        </Col>
+        <Field  
+            name={name}
+            label={item.title}
+            component={component(item)}
+
+            {...type(item)}
+        />
     );
 }
 
-let FilterForm = props => {
-    const { handleSubmit, fields, filterItems } = props;
-    return (
-        filterItems && <form onSubmit={ handleSubmit }>
-            <Row>
+class FilterForm extends React.PureComponent{
+    
+    render() {
+        const { handleSubmit, fields, filterItems, onChangeFilter } = this.props;
+        return (
+            filterItems && <form onSubmit={ handleSubmit }>
+
                 {
                     filterItems.map(x => (
-                        <Row>
-
+                        <Row key={x.id}>
                             <Col number={6}>
-                                <Item 
-                                    key={x}
-                                    name={x}
+                                <SelectFields 
                                     fields={fields}
+                                    onChange={(e) => onChangeFilter(x.id, e.target.value)}
+                                    value={x.key}
                                 />
+                            </Col>
+                            <Col number={6}>
+                                {x.key && <Item 
+                                    name={x.key}
+                                    fields={fields}
+                            
+                                />}
                             </Col>                        
                         </Row>
-                        
                     ))
                 }
-            </Row>
-        </form>
-    );
-};
 
-FilterForm = reduxForm({
+            </form>
+        );
+    }}
+  
+export default reduxForm({
     form: 'filter'
 })(FilterForm);
-  
-export default FilterForm;

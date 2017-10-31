@@ -1,5 +1,5 @@
 import constants from 'constants/appConstants';
-import { Map, setIn, getIn } from 'immutable';
+import { Map, List, setIn, getIn } from 'immutable';
 
 const initialState = Map({
     modal: {
@@ -8,7 +8,7 @@ const initialState = Map({
     mainModel: {},
     items: {isFetching: false, data: []},
     filter: {
-        items:  [],
+        items:  List([]),
         values: []      
     }
 });
@@ -27,21 +27,21 @@ export default (state = initialState, action) => {
             data: action.items
         });
     case constants.ADD_FILTER: 
-        return setIn(state, ['filter', 'items'], getIn(state, ['filter', 'items']).push({
+        return setIn(state, ['filter', 'items'], List(getIn(state, ['filter', 'items']).push({
             id: new Date().valueOf(),
             key: action.key
-        }));
+        })));
     case constants.CHANGE_FILTER: 
-        return setIn(state, ['filter', 'items'], getIn(state, ['filter', 'items']).map(x => {
+        return setIn(state, ['filter', 'items'], List(getIn(state, ['filter', 'items']).toJS().map(x => {
             if (x.id === action.id) {
                 x.key = action.key;
             }
             return x;
-        }));
+        })));
     case constants.DELETE_FILTER: 
         return setIn(state, 
             ['filter', 'items'], 
-            getIn(state, ['filter', 'items']).filter(x => x.id !== action.id));
+            List(getIn(state, ['filter', 'items']).toJS().filter(x => x.id !== action.id)));
     }
     
     return state;

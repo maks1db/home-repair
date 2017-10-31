@@ -16,8 +16,8 @@ export default class Input extends React.Component {
     render() {
         const {
             errorMessage,
-            input: { value, onChange } 
         } = this.props;
+        const { value, onChange }  = this.props.input ? this.props.input : this.props;
 
         return (
             <div {...ClassName({'has-error': errorMessage  !== undefined && errorMessage !== false, 
