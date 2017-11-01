@@ -9,13 +9,15 @@ import Table from 'ModelView/Table.jsx';
 import {
     save,
     getItem,
-    del 
+    del,
+    get 
 } from 'actions/api';
 import Filters from 'ModelView/Filters.jsx';
 import { modalState,
     addFilter,
     changeFilter,
-    deleteFilter
+    deleteFilter,
+    copyFilter
 } from 'actions/appActions';
 
 function mapStateToProps(state) {
@@ -37,7 +39,11 @@ function mapDispatchToProps(dispatch, ownProps) {
         onDelete: () => dispatch(del()),
         onAddFilter: (key) => dispatch(addFilter(key)),
         onChangeFilter: (id, key) => dispatch(changeFilter(id, key)),
-        onDeleteFilter: (id) => dispatch(deleteFilter(id))
+        onDeleteFilter: (id) => dispatch(deleteFilter(id)),
+        onCopyFilter: () => {
+            dispatch(copyFilter());
+            dispatch(get())
+        }
     };
 }
 
@@ -63,7 +69,8 @@ export default class Layout extends Component {
             filterItems,
             onAddFilter,
             onChangeFilter,
-            onDeleteFilter
+            onDeleteFilter,
+            onCopyFilter
         } = this.props;
 
         return (
@@ -78,6 +85,7 @@ export default class Layout extends Component {
                         onAddFilter={onAddFilter}
                         onChangeFilter={onChangeFilter}
                         onDeleteFilter={onDeleteFilter}
+                        onCopyFilter={onCopyFilter}
                     />}
                     {modelFields && 
                     <Table 

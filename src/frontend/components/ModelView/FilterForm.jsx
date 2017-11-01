@@ -6,6 +6,9 @@ import Row from 'Controls/Row.jsx';
 import Col from 'Controls/Col.jsx';
 import Checkbox from 'Controls/Checkbox.jsx';
 import Select from 'Controls/Select.jsx';
+import Button from 'Controls/Button.jsx';
+import styles from './Filters.scss';
+import Options from 'ModelEdit/Options.jsx';
 
 function type(field) {
 
@@ -29,7 +32,9 @@ function component(field) {
     if (field.type === 'date') {
         return DateTimePicker;
     }
-
+    else if (field.type === 'list') {
+        return Select;
+    }
     return Input;
 }
 
@@ -67,6 +72,14 @@ function Item({ fields, name }) {
                 </Col>
             </Row>    
         );
+    case 'list': 
+        return <Field  
+            name={name}
+            label={item.title}
+            component={component(item)}
+            children={<Options field={item}/>}
+            {...type(item)}
+        />;
     }
     return (
         <Field  
@@ -82,7 +95,7 @@ function Item({ fields, name }) {
 class FilterForm extends React.PureComponent{
     
     render() {
-        const { handleSubmit, fields, filterItems, onChangeFilter } = this.props;
+        const { handleSubmit, fields, filterItems, onChangeFilter, onDeleteFilter } = this.props;
         return (
             filterItems && <form onSubmit={ handleSubmit }>
 
@@ -90,11 +103,24 @@ class FilterForm extends React.PureComponent{
                     filterItems.map(x => (
                         <Row key={x.id}>
                             <Col number={6}>
-                                <SelectFields 
-                                    fields={fields}
-                                    onChange={(e) => onChangeFilter(x.id, e.target.value)}
-                                    value={x.key}
-                                />
+                                <div className={styles.remove}>
+                                    <div>
+                                        <Button 
+                                            children="Удалить"
+                                            option="warning"
+                                            onClick={() => onDeleteFilter(x.id)}
+                                            className={styles.remove}
+                                        />
+                                    </div>
+                                    <div>
+                                        <SelectFields 
+                                            fields={fields}
+                                            onChange={(e) => onChangeFilter(x.id, e.target.value)}
+                                            value={x.key}
+                                        />
+                                    </div>
+                                </div>
+                                
                             </Col>
                             <Col number={6}>
                                 {x.key && <Item 

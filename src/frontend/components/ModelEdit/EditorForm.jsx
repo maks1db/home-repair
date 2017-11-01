@@ -1,9 +1,11 @@
 import React from 'react';
 import Input from 'Controls/Input.jsx';
+import Select from 'Controls/Select.jsx';
 import DateTimePicker from 'Controls/DateTimePicker.jsx';
 import { Field, reduxForm } from 'redux-form';
 import Row from 'Controls/Row.jsx';
 import Col from 'Controls/Col.jsx';
+import Options from './Options.jsx';
 
 function type(field) {
 
@@ -27,6 +29,9 @@ function component(field) {
     if (field.type === 'date') {
         return DateTimePicker;
     }
+    else if (field.type === 'list') {
+        return Select;
+    }
 
     return Input;
 }
@@ -43,7 +48,7 @@ let EditorForm = props => {
                                 name={x}
                                 label={fields[x].title}
                                 component={component(fields[x])}
-                                // defaultValue={values === undefined ? fields[x].defaultValue : values[x]}
+                                {...fields[x].type==='list' && {children: <Options field={fields[x]} />}}
                                 {...type(fields[x])}
                             />
                         </Col>

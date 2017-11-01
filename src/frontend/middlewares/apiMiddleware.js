@@ -1,6 +1,7 @@
 import constants from 'constants/appConstants';
 import api from 'api/crud';
 import { change } from 'redux-form';
+import { getIn } from 'immutable';
 
 const form = 'model';
 
@@ -63,9 +64,11 @@ const apiMiddleware = store => next => action => {
         const model = state.app.get('mainModel');
 
         const crud = new api(`crud/${model.name}`); 
+        const query = state.app.get('filter').query.toJS();
 
         crud.get({
-            sort: model.sort
+            sort: model.sort,
+            query
         })
             .then(x => {
                 store.dispatch({
@@ -104,16 +107,6 @@ const apiMiddleware = store => next => action => {
                     type: constants.ITEMS_REQUEST
                 });
             });
-        
-    }
-
-    if (action.type === constants.COPY_FILTER) {
-        const state = store.getState();
-        
-        store.dispatch({
-            type: constants.SET_FILTER,
-            data: state.fom.filter.values
-        });
         
     }
     next(action);

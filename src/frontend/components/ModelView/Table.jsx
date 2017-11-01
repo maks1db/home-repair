@@ -7,7 +7,7 @@ const Head = (props) => (
         <tr>
             {
                 Object.keys(props.fields).map( x => 
-                    !props.fields[x].hide && <th key={x}>
+                    (!props.fields[x].hide && !props.fields[x].hidden) && <th key={x}>
                         {props.fields[x].title}
                     </th>
                 )
@@ -26,7 +26,7 @@ const Body = (props) => (
                 >
                     {
                         Object.keys(props.fields).map( d => 
-                            !props.fields[d].hide && <td key={d}>
+                            (!props.fields[d].hide && !props.fields[d].hidden) && <td key={d}>
                                 {x[d]}
                             </td>
                         )

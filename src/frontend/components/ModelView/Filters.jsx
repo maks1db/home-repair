@@ -39,6 +39,7 @@ export default class Filters extends React.PureComponent {
 
                                 >Добавить</Button>
                                 <Button 
+                                    onClick={() => this.props.onCopyFilter()}
                                     option="success"
                                 >Применить</Button>
                             </div>

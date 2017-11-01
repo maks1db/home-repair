@@ -9,7 +9,7 @@ const initialState = Map({
     items: {isFetching: false, data: []},
     filter: {
         items:  List([]),
-        values: []      
+        query: Map({})      
     }
 });
 
@@ -42,7 +42,13 @@ export default (state = initialState, action) => {
         return setIn(state, 
             ['filter', 'items'], 
             List(getIn(state, ['filter', 'items']).toJS().filter(x => x.id !== action.id)));
+    case constants.COPY_FILTER: 
+        return setIn(state, 
+            ['filter', 'query'], 
+            Map(action.filter));
+        
     }
+    
     
     return state;
 };

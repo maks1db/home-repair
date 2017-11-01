@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import model from 'models/costs';
+import model from 'models/repairs';
 import { setMainModel } from 'actions/appActions';
 import { get } from 'actions/api';
 
