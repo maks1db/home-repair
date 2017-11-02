@@ -62,12 +62,12 @@ const apiMiddleware = store => next => action => {
     if (action.type === constants.ITEMS_REQUEST) {
         const state = store.getState();
         const model = state.app.get('mainModel');
-
+        const sort = state.app.get('sort');
         const crud = new api(`crud/${model.name}`); 
         const query = state.app.get('filter').query.toJS();
 
         crud.get({
-            sort: model.sort,
+            sort,
             query
         })
             .then(x => {

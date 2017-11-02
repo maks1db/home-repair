@@ -1,7 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import ClassName from 'className.js';
 
-export default (props) => (
+export default ( {path}) => (
     <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
             <div className="navbar-header">
@@ -15,10 +16,10 @@ export default (props) => (
             </div>
             <div className="collapse navbar-collapse" id="navbar-collapse">
                 <ul className="nav navbar-nav">
-                    <li className="active"><NavLink to="/">Расходы</NavLink></li>
-                    <li><NavLink to="/">Ремонт</NavLink></li>
-                    <li><NavLink to="/">Планирование</NavLink></li>
-                    <li><NavLink to="/">Идеи</NavLink></li>
+                    <li {...ClassName({active: path === '/'})}><NavLink to="">Расходы</NavLink></li>
+                    <li {...ClassName({active: path === '/repair'})}><NavLink to="/repair">Ремонт</NavLink></li>
+                    <li {...ClassName({active: path === '/plan'})}><NavLink to="/plan">Планирование</NavLink></li>
+                    <li {...ClassName({active: path === '/idea'})}><NavLink to="/idea">Идеи</NavLink></li>
                     <li className="dropdown">
                         <NavLink to="/" className="dropdown-toggle" data-toggle="dropdown">Выплата по долгам<b className="caret"></b></NavLink>
                         <ul className="dropdown-menu">

@@ -40,3 +40,10 @@ export const changeFilter = (id, key) => {
         id, key
     };
 };
+
+export const changeSort = (key) => {
+    return {
+        type: constants.CHANGE_SORT,
+        key
+    };
+};

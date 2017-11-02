@@ -10,7 +10,8 @@ const initialState = Map({
     filter: {
         items:  List([]),
         query: Map({})      
-    }
+    },
+    sort: Map({})
 });
 
 export default (state = initialState, action) => {
@@ -18,7 +19,7 @@ export default (state = initialState, action) => {
     case constants.MODAL_STATE:
         return setIn(state, ['modal', 'open'], action.value);
     case constants.SET_MAIN_MODEL: 
-        return state.set('mainModel', action.model);
+        return state.set('mainModel', action.model).set('sort', Map(action.model.sort));
     case constants.SET_FILTER: 
         return state.set('filter', action.data);
     case constants.ITEMS_RECEIVE:
@@ -46,7 +47,8 @@ export default (state = initialState, action) => {
         return setIn(state, 
             ['filter', 'query'], 
             Map(action.filter));
-        
+    case constants.CHANGE_SORT: 
+        return state.set('sort', Map(action.sort));
     }
     
     

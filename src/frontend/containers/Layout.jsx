@@ -17,7 +17,8 @@ import { modalState,
     addFilter,
     changeFilter,
     deleteFilter,
-    copyFilter
+    copyFilter,
+    changeSort
 } from 'actions/appActions';
 
 function mapStateToProps(state) {
@@ -28,7 +29,9 @@ function mapStateToProps(state) {
         items: state.app.get('items'),
         form: state.form.model,
         model: state.app.get('mainModel'),
-        filterItems: state.app.get('filter').items.toJS()
+        filterItems: state.app.get('filter').items.toJS(),
+        sort: state.app.get('sort').toJS(),
+        path: state.routing.location.pathname
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {
@@ -43,6 +46,10 @@ function mapDispatchToProps(dispatch, ownProps) {
         onCopyFilter: () => {
             dispatch(copyFilter());
             dispatch(get())
+        },
+        onChangeSort: (key) => {
+            dispatch(changeSort(key));
+            dispatch(get());
         }
     };
 }
@@ -70,12 +77,17 @@ export default class Layout extends Component {
             onAddFilter,
             onChangeFilter,
             onDeleteFilter,
-            onCopyFilter
+            onCopyFilter, 
+            sort,
+            onChangeSort,
+            path
         } = this.props;
 
         return (
             <div>
-                <Nav />
+                <Nav
+                    path={path}
+                />
                 <Content>
                     <h3>{title}</h3>
                     {modelFields &&
@@ -93,6 +105,8 @@ export default class Layout extends Component {
                         items={items}
                         onGetItem={onGetItem}
                         sum={model.sum}
+                        sort={sort}
+                        onChangeSort={onChangeSort}
                     />}
                     {this.props.children}
                 </Content>

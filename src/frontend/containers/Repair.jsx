@@ -15,7 +15,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Main extends Component {
+export default class Repair extends Component {
     constructor() {
         super();
     }

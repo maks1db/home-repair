@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import model from 'models/costs';
+import model from 'models/plan';
 import { setMainModel } from 'actions/appActions';
 import { get } from 'actions/api';
 
@@ -15,7 +15,7 @@ function mapDispatchToProps(dispatch, ownProps) {
 }
 
 @connect(mapStateToProps, mapDispatchToProps)
-export default class Cost extends Component {
+export default class Plan extends Component {
     constructor() {
         super();
     }

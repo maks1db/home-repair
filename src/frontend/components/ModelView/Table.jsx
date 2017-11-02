@@ -7,8 +7,13 @@ const Head = (props) => (
         <tr>
             {
                 Object.keys(props.fields).map( x => 
-                    (!props.fields[x].hide && !props.fields[x].hidden) && <th key={x}>
+                    (!props.fields[x].hide && !props.fields[x].hidden) && 
+                    <th 
+                        onClick={() => props.onChangeSort(x)}
+                        key={x}>
                         {props.fields[x].title}
+                        {(props.sort[x] &&  props.sort[x] < 0) && <i className="fa fa-chevron-up" aria-hidden="true"></i>} 
+                        {(props.sort[x] &&  props.sort[x] > 0) && <i className="fa fa-chevron-down" aria-hidden="true"></i>} 
                     </th>
                 )
             
@@ -39,7 +44,7 @@ const Body = (props) => (
 function total(props) {
 
     let result = 0;
-    props.items.data.forEach(x => result += x[props.sum]);
+    props.items.data.forEach(x => result += x[props.sum] || 0);
     return result;
 
 }

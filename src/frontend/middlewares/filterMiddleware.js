@@ -40,6 +40,21 @@ export default store => next => action => {
         next(action);
 
     }
+    else if (action.type === constants.CHANGE_SORT) {
+        const state = store.getState();
+        let sort = state.app.get('sort').toJS();
+        const key = Object.keys(sort)[0];
+
+        if (key === action.key) {
+            sort[key] = - sort[key];
+        }
+        else {
+            sort = {[action.key]: -1};
+        }
+
+        action.sort = sort;
+        next(action);
+    }
     else {
         next(action);
     }
