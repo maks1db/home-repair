@@ -19,7 +19,12 @@ export default (state = initialState, action) => {
     case constants.MODAL_STATE:
         return setIn(state, ['modal', 'open'], action.value);
     case constants.SET_MAIN_MODEL: 
-        return state.set('mainModel', action.model).set('sort', Map(action.model.sort));
+        return state.set('mainModel', action.model)
+            .set('sort', Map(action.model.sort))
+            .set('filter', {
+                items:  List([]),
+                query: Map({})      
+            });
     case constants.SET_FILTER: 
         return state.set('filter', action.data);
     case constants.ITEMS_RECEIVE:

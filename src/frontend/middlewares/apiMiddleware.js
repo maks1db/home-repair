@@ -1,7 +1,6 @@
 import constants from 'constants/appConstants';
 import api from 'api/crud';
 import { change } from 'redux-form';
-import { getIn } from 'immutable';
 
 const form = 'model';
 

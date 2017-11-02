@@ -1,4 +1,5 @@
 import constants from 'constants/appConstants';
+import { destroy } from 'redux-form';
 
 export default store => next => action => {
 
@@ -22,8 +23,9 @@ export default store => next => action => {
                 
                 const item = fields[x];
                 if (item.type === 'date') {
+                    const d = values[`${x}_begin`];
                     obj[x] = {
-                        $gte: values[`${x}_begin`],
+                        $gte: new Date(d.getFullYear(), d.getMonth(), d.getDate(),0,0,0),
                         $lt: values[`${x}_end`]
                     };
                 }
@@ -53,6 +55,10 @@ export default store => next => action => {
         }
 
         action.sort = sort;
+        next(action);
+    }
+    else if (action.type === constants.SET_MAIN_MODEL) {
+        store.dispatch(destroy(['model', 'filter']));
         next(action);
     }
     else {
