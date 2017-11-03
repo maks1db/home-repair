@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import ClassName from 'className.js';
 
-export default ( {path}) => (
+export default ( {path, autorized, onLogout}) => (
     <nav className="navbar navbar-default" role="navigation">
         <div className="container-fluid">
             <div className="navbar-header">
@@ -12,10 +12,11 @@ export default ( {path}) => (
                     <span className="icon-bar"></span>
                     <span className="icon-bar"></span>
                 </button>
-                <NavLink className="navbar-brand" to="">Ремонт квартиры</NavLink>
+                {autorized && <NavLink className="navbar-brand" to="">Ремонт квартиры</NavLink>}
+                {!autorized && <a className="navbar-brand">Ремонт квартиры</a>}
             </div>
             <div className="collapse navbar-collapse" id="navbar-collapse">
-                <ul className="nav navbar-nav">
+                {autorized && <ul className="nav navbar-nav">
                     <li {...ClassName({active: path === '/'})}><NavLink to="">Расходы</NavLink></li>
                     <li {...ClassName({active: path === '/repair'})}><NavLink to="/repair">Ремонт</NavLink></li>
                     <li {...ClassName({active: path === '/plan'})}><NavLink to="/plan">Планирование</NavLink></li>
@@ -27,6 +28,11 @@ export default ( {path}) => (
                             <li><NavLink to="/">Ипотека</NavLink></li>
                         </ul>
                     </li>
+                </ul>}
+
+                <ul className="nav navbar-nav navbar-right">
+                    {!autorized && <li><NavLink to="/login">Войти</NavLink></li>}
+                    {autorized && <li><a onClick={() => onLogout()}>Выйти</a></li>}
                 </ul>
             </div>
         </div>

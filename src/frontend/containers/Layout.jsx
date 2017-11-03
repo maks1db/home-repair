@@ -18,7 +18,8 @@ import { modalState,
     changeFilter,
     deleteFilter,
     copyFilter,
-    changeSort
+    changeSort,
+    logoutUser
 } from 'actions/appActions';
 
 function mapStateToProps(state) {
@@ -31,7 +32,8 @@ function mapStateToProps(state) {
         model: state.app.get('mainModel'),
         filterItems: state.app.get('filter').items.toJS(),
         sort: state.app.get('sort').toJS(),
-        path: state.routing.location.pathname
+        path: state.routing.location.pathname,
+        autorized: state.app.get('token') !== ''
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {
@@ -50,7 +52,8 @@ function mapDispatchToProps(dispatch, ownProps) {
         onChangeSort: (key) => {
             dispatch(changeSort(key));
             dispatch(get());
-        }
+        },
+        onLogout: () => dispatch(logoutUser()) 
     };
 }
 
@@ -80,17 +83,21 @@ export default class Layout extends Component {
             onCopyFilter, 
             sort,
             onChangeSort,
-            path
+            path,
+            autorized,
+            onLogout
         } = this.props;
 
         return (
             <div>
                 <Nav
                     path={path}
+                    autorized={autorized}
+                    onLogout={onLogout}
                 />
                 <Content>
                     <h3>{title}</h3>
-                    {modelFields &&
+                    {(modelFields && autorized) &&
                     <Filters 
                         fields={modelFields}
                         filterItems={filterItems}
@@ -99,7 +106,7 @@ export default class Layout extends Component {
                         onDeleteFilter={onDeleteFilter}
                         onCopyFilter={onCopyFilter}
                     />}
-                    {modelFields && 
+                    {(modelFields && autorized) &&
                     <Table 
                         fields={modelFields}
                         items={items}
@@ -122,9 +129,10 @@ export default class Layout extends Component {
                         values={form !== undefined ? form.values : {}}
                     />}
                 </Editor>
-                <Buttons 
+                {autorized && <Buttons 
                     onChangeModalState={onChangeModalState}
-                />
+                    
+                />}
             </div>
         );
     }

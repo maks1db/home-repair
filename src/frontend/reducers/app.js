@@ -5,6 +5,7 @@ const initialState = Map({
     modal: {
         open: false
     },
+    token: '',
     mainModel: {},
     items: {isFetching: false, data: []},
     filter: {
@@ -54,6 +55,8 @@ export default (state = initialState, action) => {
             Map(action.filter));
     case constants.CHANGE_SORT: 
         return state.set('sort', Map(action.sort));
+    case constants.LOGIN_RECEIVE:
+        return state.set('token', action.token);
     }
     
     
