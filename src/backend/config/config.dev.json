@@ -1,0 +1,14 @@
+{
+    "mongodb":{
+      "port": "27017",
+      "database": "home-repair",
+      "host": "localhost"
+    },
+    "users": {
+      "admin": {
+        "login": "admin",
+        "password": "admin"
+      }
+    }
+}
+  
