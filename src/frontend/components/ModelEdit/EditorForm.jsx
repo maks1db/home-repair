@@ -37,7 +37,7 @@ function component(field) {
 }
 
 let EditorForm = props => {
-    const { handleSubmit, fields, values } = props;
+    const { handleSubmit, fields, editorValues, dispatch } = props;
     return (
         <form onSubmit={ handleSubmit }>
             <Row>
@@ -47,6 +47,10 @@ let EditorForm = props => {
                             <Field  
                                 name={x}
                                 label={fields[x].title}
+                                _onChange={fields[x].onChange ? 
+                                    (val) => dispatch(fields[x].onChange(val, editorValues, 'model')) :
+                                    undefined    
+                                }
                                 component={component(fields[x])}
                                 {...fields[x].type==='list' && {children: <Options field={fields[x]} />}}
                                 {...type(fields[x])}
