@@ -16,6 +16,9 @@ export default class Input extends React.Component {
     render() {
         const {
             errorMessage,
+            _onChange,
+            formName,
+            editorValues
         } = this.props;
         const { value, onChange }  = this.props.input ? this.props.input : this.props;
 
@@ -27,8 +30,18 @@ export default class Input extends React.Component {
                     type="text" 
                     className="form-control" 
                     value={value}
-                    onChange={(e) => onChange(e.target.value) }
-                    {...deleteProps(this.props, ['onValidation','reqired', 'errorMessage', 'input'])}
+                    onChange={(e) => {
+                        if (_onChange) {
+                            _onChange(e.target.value);
+                        }
+                        onChange(e.target.value); 
+                    }}
+                    {...deleteProps(this.props, [
+                        'onValidation',
+                        '_onChange',
+                        'reqired', 
+                        'errorMessage', 
+                        'input'])}
                 />
                 {(errorMessage  !== undefined && errorMessage !== false) && (<span className="glyphicon glyphicon-remove form-control-feedback"></span>)}
                 {(errorMessage  !== undefined &&errorMessage !== false) && (<label className={styles.error}>{errorMessage}</label>)}
