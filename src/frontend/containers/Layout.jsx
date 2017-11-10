@@ -126,7 +126,7 @@ export default class Layout extends Component {
                 >
                     {(modelFields && modalOpen) && <EditorForm 
                         fields={modelFields}
-                        editorValues={form.values || {}}
+                        editorValues={(form && form.values) || {}}
                     />}
                 </Editor>
                 {autorized && <Buttons 

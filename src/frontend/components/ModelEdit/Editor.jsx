@@ -4,6 +4,7 @@ export default class Editor extends React.Component {
     constructor() {
         super();
     }
+
     componentDidMount() {
         $(this.modal).modal({
             keyboard: false,
@@ -26,7 +27,14 @@ export default class Editor extends React.Component {
             onDelete
         } = this.props;
         return (
-            <div ref={(e) => this.modal = e} className="modal fade" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div 
+                onClick={() => onChangeModalState(false)}
+                ref={(e) => this.modal = e} 
+                className="modal fade" 
+                tabIndex="-1" 
+                role="dialog" 
+                aria-labelledby="myModalLabel" 
+                aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">
