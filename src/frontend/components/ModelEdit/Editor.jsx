@@ -28,13 +28,22 @@ export default class Editor extends React.Component {
         } = this.props;
         return (
             <div 
-                onClick={() => onChangeModalState(false)}
                 ref={(e) => this.modal = e} 
                 className="modal fade" 
                 tabIndex="-1" 
                 role="dialog" 
                 aria-labelledby="myModalLabel" 
                 aria-hidden="true">
+                <div 
+                    onClick={() => onChangeModalState(false)}
+                    style={{
+                        position: 'fixed',
+                        top:0,
+                        left: 0,
+                        width: '100%',
+                        height: '100%'
+                    }}>
+                </div>
                 <div className="modal-dialog">
                     <div className="modal-content">
                         <div className="modal-header">

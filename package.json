@@ -1,6 +1,6 @@
 {
   "name": "home-repair",
-  "version": "0.4.5",
+  "version": "0.4.6",
   "description": "Ремонт моей квартиры",
   "main": "index.js",
   "scripts": {
