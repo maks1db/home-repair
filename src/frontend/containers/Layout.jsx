@@ -112,6 +112,7 @@ export default class Layout extends Component {
                         (CustomView ? 
                         <CustomView 
                         items={items}
+                        onGetItem={onGetItem}
                         />
                         :
                         <Table 

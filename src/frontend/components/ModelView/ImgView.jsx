@@ -1,5 +1,7 @@
 import React, { PureComponent } from 'react';
 import styles from './Gallery.scss';
+import Img from './Controls/Img.jsx';
+import Button from 'Controls/RaisedButton.jsx';
 
 export default class ImgView extends PureComponent {
     constructor() {
@@ -8,41 +10,54 @@ export default class ImgView extends PureComponent {
 
     render() {
 
+        const {
+            items,
+            open,
+            index,
+            onSetModalImg,
+            onSetModal,
+            onGetItem
+        } = this.props;
+
+        const item = items.data[index];
+
         return (
-            props.open && <div className={styles.fullImg}>
-                <div className={styles.title}>{item.title} </div>
-                <div className={styles.count}>{props.index + 1} из {props.items.data.length}</div>
-                {!props.commentActive && <div className={styles.preview}>
-                    <img src={item.url}/>
+            open && <div className={styles.fullImg}>
+                <div className={styles.title}>{item.name} </div>
+                <div className={styles.count}>{index + 1} из {items.data.length}</div>
+                {<div className={styles.preview}>
+                    <Img src={item.url} />
                 </div>} 
                 <div className={styles.description}>
-                    {item.info}
+                    {item.room}
                 </div>
-                <div className={styles.ratingPreview}>
-                    <div className={styles.content}>
-                        <Rating 
-                            starCount={10}
-                            name="rating"
-                            onStarClick={(value) => props.onUpdateRating(item._id, value)}
-                            value={item.value}
-                        />
-                    </div>
+                <div className={styles.rating}>
+                    {item.rating}
                 </div>
-                {props.index !== 0 && 
+                <div className={styles.edit}>
+                    <Button 
+                        onClick={() => {
+                            onGetItem(item._id);
+                        }}
+                        option="success"
+                        mini={true}
+                    ><i className="fa fa-pencil" aria-hidden="true"></i></Button>
+                </div>
+                {index !== 0 && 
                 <div 
-                    onClick={() => props.onSetModalImg(props.index - 1)}
+                    onClick={() => onSetModalImg(index - 1)}
                     className={styles.left}
                 ><i className="fa fa-chevron-left"></i></div>
                 }
-                {props.index !== props.items.data.length -1 && 
+                {index !== items.data.length -1 && 
                 <div 
                     className={styles.right}
-                    onClick={() => props.onSetModalImg(props.index + 1)}
+                    onClick={() => onSetModalImg(index + 1)}
                 ><i className="fa fa fa-chevron-right"></i></div>
                 }
                 <div 
                     className={styles.close}
-                    onClick={()=>props.onSetModal(false)}    
+                    onClick={()=>onSetModal(false)}    
                 ><i className="fa fa-times"></i></div>
             
             </div>
