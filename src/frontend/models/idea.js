@@ -5,7 +5,7 @@ export default {
     title: 'Идеи на ремонт',
     name: 'idea',
     sort: {
-        name: 1
+        rating: -1
     },
     custom,
     fields: {

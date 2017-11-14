@@ -14,13 +14,13 @@ export default class Gallery extends PureComponent {
 
         this.state = {
             open: false,
-            index: 0
+            id: ''
         };
     }
     
     onSetModalImg = (index) => {
         this.setState({
-            index
+            id: this.props.items.data[index]._id
         });
     }
 
@@ -30,10 +30,9 @@ export default class Gallery extends PureComponent {
 
     onClickImg = (id) => {
 
-        const { items } = this.props;
         this.setState({
             open: true,
-            index: items.data.findIndex(x => x._id === id) 
+            id 
         });
     }
 
@@ -50,7 +49,7 @@ export default class Gallery extends PureComponent {
         } = this.props;
 
         const {
-            open, index
+            open, id
         } = this.state;
         return (
             <div className={styles.gallery}>
@@ -70,6 +69,7 @@ export default class Gallery extends PureComponent {
                                     <Img src={x.url} />
                                     <div className={styles.rating}>{x.rating}</div>
                                 </div>
+                                <div className={styles.room}>{x.room}</div>
                             </div>
                         ))
                     }
@@ -77,7 +77,7 @@ export default class Gallery extends PureComponent {
                 <ImgView 
                     items={items}
                     open={open}
-                    index={index}
+                    id={id}
                     onSetModal={onSetModal}
                     onSetModalImg={onSetModalImg}
                     onGetItem={onGetItem}

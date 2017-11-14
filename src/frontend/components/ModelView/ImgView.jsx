@@ -6,6 +6,16 @@ import Button from 'Controls/RaisedButton.jsx';
 export default class ImgView extends PureComponent {
     constructor() {
         super();
+
+        this.state = {
+            items: {}
+        };
+    }
+
+    componentWillMount() {
+        this.setState({
+            items: this.props.items
+        });
     }
 
     render() {
@@ -13,11 +23,13 @@ export default class ImgView extends PureComponent {
         const {
             items,
             open,
-            index,
+            id,
             onSetModalImg,
             onSetModal,
             onGetItem
         } = this.props;
+
+        const index = items.data.findIndex(x => x._id === id);
 
         const item = items.data[index];
 

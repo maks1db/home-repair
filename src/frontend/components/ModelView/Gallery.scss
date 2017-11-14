@@ -6,8 +6,14 @@
         margin: 12px;
         .name {
             text-align: center;
-            padding-bottom: 4px;
-            font-size: 16px;
+            padding-bottom: 2px;
+            font-size: 14px;
+        }
+        .room {
+            text-align: center;
+            margin-top: 5px;
+            font-size: 12px;
+            font-weight: bold; 
         }
         img {
             padding: 4px;
@@ -32,7 +38,7 @@
     text-align: center;
     border-radius: 50%;
     right: -9px;
-    bottom: -7px;
+    bottom: 2px;
     border-color: #4cae4c;
     box-shadow: 1px 2px 5px rgba(0,0,0,.5) inset;
 }
@@ -57,6 +63,11 @@
         text-align: center;
         top: 88%;
         width:100%;
+    }
+    .rating {
+        right: none !important;
+        bottom: 16px;
+        left: 76px;
     }
     .commentArea {
         position: fixed;
