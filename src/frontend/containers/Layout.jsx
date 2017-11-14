@@ -33,7 +33,8 @@ function mapStateToProps(state) {
         filterItems: state.app.get('filter').items.toJS(),
         sort: state.app.get('sort').toJS(),
         path: state.routing.location.pathname,
-        autorized: state.app.get('token') !== ''
+        autorized: state.app.get('token') !== '',
+        CustomView: state.app.get('mainModel').custom
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {
@@ -85,7 +86,8 @@ export default class Layout extends Component {
             onChangeSort,
             path,
             autorized,
-            onLogout
+            onLogout,
+            CustomView
         } = this.props;
 
         return (
@@ -107,14 +109,20 @@ export default class Layout extends Component {
                         onCopyFilter={onCopyFilter}
                     />}
                     {(modelFields && autorized) &&
-                    <Table 
+                        (CustomView ? 
+                        <CustomView 
+                        items={items}
+                        onGetItem={onGetItem}
+                        />
+                        :
+                        <Table 
                         fields={modelFields}
                         items={items}
                         onGetItem={onGetItem}
                         sum={model.sum}
                         sort={sort}
                         onChangeSort={onChangeSort}
-                    />}
+                    />)}
                     {this.props.children}
                 </Content>
                 <Editor 

@@ -1,11 +1,13 @@
 import rooms from 'rooms.js';
+import custom from 'ModelView/Gallery.jsx';
 
 export default {
     title: 'Идеи на ремонт',
     name: 'idea',
     sort: {
-        name: 1
+        rating: -1
     },
+    custom,
     fields: {
         _id: {
             type: 'string',
@@ -29,8 +31,7 @@ export default {
             type: 'string',
             title: 'Ссылка',
             defaultValue: ''
-        },
-        
+        },  
         comment: {
             type: 'string',
             title: 'Комментарий',
