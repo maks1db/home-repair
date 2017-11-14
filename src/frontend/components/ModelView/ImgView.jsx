@@ -18,6 +18,27 @@ export default class ImgView extends PureComponent {
         });
     }
 
+    onKeyUp = (e) => {
+        const props = this.props;
+
+        const index = props.items.data.findIndex(x => x._id === props.id);
+        if (e.keyCode === 39 && index !== props.items.data.length -1) {
+            props.onSetModalImg(index + 1);     
+        }
+
+        if (e.keyCode === 37 && index !== 0) {
+            props.onSetModalImg(index - 1);     
+        }
+    }
+
+    componentWillMount() {
+        document.addEventListener('keyup', this.onKeyUp);
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('keyup', this.onKeyUp);
+    }
+
     render() {
 
         const {

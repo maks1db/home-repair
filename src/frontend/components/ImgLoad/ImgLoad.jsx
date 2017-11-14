@@ -39,10 +39,10 @@ export default class ImgLoad extends React.Component {
             maxSizeError: false,
             typeError: false
         });
-
+        const onChange = this.props.onChange || this.props.input.onChange;
         const files = e.target.files;
         if (files.length === 0) {
-            this.props.onChange(e);
+            onChange(e);
             return;
         }
 
@@ -78,7 +78,7 @@ export default class ImgLoad extends React.Component {
             e.target.value = '';
             return;
         }
-        this.props.onChange(e);
+        onChange(e);
 
     }
 
@@ -92,7 +92,7 @@ export default class ImgLoad extends React.Component {
     errorList = () => {
         const {minSizeError, maxSizeError, typeError} = this.state;
         return (
-            <ul className={styles.errors}>
+            (minSizeError || maxSizeError || typeError) && <ul className={styles.errors}>
                 {minSizeError && <li>Минимальный размер файла {this.props.minSize} кб.</li>}
                 {maxSizeError && <li>Максимальный размер файла {this.props.maxSize} кб.</li>}
                 {typeError && <li>Допустимые типы файлов: {this.props.imgType.join(', ')}</li>}

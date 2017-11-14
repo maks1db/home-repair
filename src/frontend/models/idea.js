@@ -27,23 +27,28 @@ export default {
             defaultValue: rooms[0],
             col: 6
         },
-        url: {
-            type: 'string',
-            title: 'Ссылка',
-            defaultValue: ''
-        },  
         comment: {
             type: 'string',
             title: 'Комментарий',
             defaultValue: '',
             hidden: true,
-            col: 12
+            col: 6
         },
         rating: {
             type: 'int',
             title: 'Рейтинг',
             col: 6,
             defaultValue: 0
+        },
+        url: {
+            type: 'string',
+            title: 'Ссылка',
+            defaultValue: ''
+        },  
+        img: {
+            type: 'img',
+            title: 'Изображение',
+            defaultValue: null
         }
     }
 };
