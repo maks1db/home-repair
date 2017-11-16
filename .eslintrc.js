@@ -10,11 +10,13 @@ module.exports = {
             "experimentalObjectRestSpread": true,
             "jsx": true
         },
+        "ecmaVersion": 2017,
         "sourceType": "module"
     },
     "plugins": [
         "react"
     ],
+    
     "rules": {
         "indent": [
             "error",

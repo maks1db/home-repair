@@ -2,10 +2,11 @@ import React from 'react';
 import Input from 'Controls/Input.jsx';
 import Select from 'Controls/Select.jsx';
 import DateTimePicker from 'Controls/DateTimePicker.jsx';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, change } from 'redux-form';
 import Row from 'Controls/Row.jsx';
 import Col from 'Controls/Col.jsx';
 import Options from './Options.jsx';
+import ImgLoad from 'ImgLoad/ImgLoad.jsx';
 
 function type(field) {
 
@@ -32,31 +33,44 @@ function component(field) {
     else if (field.type === 'list') {
         return Select;
     }
+    else if (field.type === 'img') {
+        return ImgLoad;
+    }
 
     return Input;
 }
 
 let EditorForm = props => {
-    const { handleSubmit, fields, editorValues, dispatch } = props;
+    const { handleSubmit, fields, editorValues, dispatch, values } = props;
     return (
         <form onSubmit={ handleSubmit }>
             <Row>
                 {
-                    Object.keys(fields).map(x => (
-                        !fields[x].hide && <Col key={x} number={fields[x].col || 12}>
+                    Object.keys(fields).map(x => {
+                        const field = fields[x];
+                        return (!field.hide && <Col key={x} number={field.col || 12}>
                             <Field  
                                 name={x}
-                                label={fields[x].title}
-                                _onChange={fields[x].onChange ? 
-                                    (val) => dispatch(fields[x].onChange(val, editorValues, 'model')) :
+                                label={field.title}
+                                _onChange={field.onChange ? 
+                                    (val) => dispatch(field.onChange(val, editorValues, 'model')) :
                                     undefined    
                                 }
-                                component={component(fields[x])}
-                                {...fields[x].type==='list' && {children: <Options field={fields[x]} />}}
-                                {...type(fields[x])}
+                                component={component(field)}
+                                {...field.type==='list' && {children: <Options field={field} />}}
+                                {...type(field)}
+                                {...field.type==='img' && {
+                                    minSize: field.min || 300,
+                                    maxSize: field.max || 15000,
+                                    imgType: field.imgType || ['jpg','jpeg','png'],
+                                    title: field.title,
+                                    defaultValue: editorValues[x] || null,
+                                    onChange: (e) => dispatch(change('model', x, e.target.files[0])),
+                                    deletePhotoItem: () => dispatch(change('model', x, null))
+                                }}
                             />
                         </Col>
-                    ))
+                        );})
                 }
             </Row>
         </form>

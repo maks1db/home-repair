@@ -10,11 +10,27 @@ const apiMiddleware = store => next => action => {
         
         const state = store.getState();
         const model = state.app.get('mainModel');
-        const obj = state.form.model.values;
-        
+        let obj = state.form.model.values;
+        let fd;
+        let hasImg = false; const imgKeys = [];
+        Object.keys(model.fields).forEach(x => {
+            if (model.fields[x].type === 'img'){
+                hasImg = true;
+                imgKeys.push(x);
+            }
+        });
+
+        if (hasImg) {
+            fd = new FormData();
+            Object.keys(obj).forEach(x => {
+                const item = imgKeys.indexOf(x) >= 0 ? (obj[x].length > 0 ? obj[x][0] : null) : obj[x];
+                fd.append(x, item);
+            });
+        }
+
         const crud = new api(`crud/${model.name}`);
         if (obj._id) {
-            crud.patch(obj._id, obj)
+            crud.patch(obj._id, fd || obj)
                 .then(() => {
                     store.dispatch({
                         type: constants.SAVE_COMPLETE
@@ -26,7 +42,7 @@ const apiMiddleware = store => next => action => {
                 });
         }
         else {
-            crud.post(obj)
+            crud.post(fd || obj)
                 .then((x) => {
                     store.dispatch({
                         type: constants.SAVE_COMPLETE

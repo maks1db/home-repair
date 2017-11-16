@@ -34,30 +34,25 @@ class CRUD {
         return router;
     }
 
-    post(req, res){
+    async post(req, res){
 
         const item = new this.model(req.body);
-        if ('put' in this.options){
-            req.body = this.options.put(req.body);
-        }
-        item.save().then((doc) => {
-            res.json({
-                result: true,
-                id: doc.id
-            });
+
+        const doc = await item.save();
+        res.json({
+            result: true,
+            id: doc.id
         });
     }
 
-    get(req, res){
+    async get(req, res){
     
         const id = req.params.id;
 
         if (id !== undefined){
-            const obj = this.model.findById(id);
+            const obj = await this.model.findById(id);
+            res.json(obj.toJSON());
 
-            this.model.findById(id).then((obj) => {           
-                res.json(obj.toJSON());
-            });
         }
         else{
 
@@ -65,15 +60,16 @@ class CRUD {
             const sort = req.query.sort || '{}';
             const limit = req.query.limit || 0;
 
-            this.model.find(JSON.parse(get)).sort(JSON.parse(sort)).limit(parseInt(limit)).then((data) => {
+            const data = await this.model
+                .find(JSON.parse(get))
+                .sort(JSON.parse(sort))
+                .limit(parseInt(limit));
 
-                res.json(data.map(x => x.toJSON()));
-                
-            });
+            res.json(data.map(x => x.toJSON()));
         }
     }
 
-    delete(req, res){
+    async delete(req, res){
 
         const id = req.params.id;   
 
@@ -85,12 +81,12 @@ class CRUD {
         });
     }
 
-    patch(req, res){
+    async patch(req, res){
         const id = ObjectID(req.params.id);
 
-        this.model.update({_id: id}, req.body)
-            .then(() => this.model.findById(id))
-            .then((obj) => res.json(obj.toJSON()));
+        await this.model.update({_id: id}, req.body);
+        const obj = await this.model.findById(id);
+        res.json(obj.toJSON());
     }
 }
 

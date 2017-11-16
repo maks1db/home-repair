@@ -1,7 +1,8 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
+const path = require('path');
 
-const token = new Schema({
+const idea = new Schema({
     name: String,
     room: String,
     url: String,
@@ -9,4 +10,4 @@ const token = new Schema({
     rating: Number
 },{versionKey: false});
 
-module.exports = mongoose.model('idea', token);
+module.exports = mongoose.model('idea', idea);
