@@ -24,7 +24,8 @@ export default class Editor extends React.Component {
             children,
             title,
             onSave,
-            onDelete
+            onDelete,
+            itemSave
         } = this.props;
         return (
             <div 
@@ -63,16 +64,19 @@ export default class Editor extends React.Component {
                                 className="btn btn-danger" 
                                 onClick={() => onDelete()}   
                                 style={{float: 'left'}}
+                                disabled={itemSave}
                             >Удалить</button>
                             <button 
                                 type="button" 
                                 className="btn btn-default" 
-                                onClick={() => onChangeModalState(false)}   
+                                onClick={() => onChangeModalState(false)}  
+                                disabled={itemSave} 
                             >Закрыть</button>
                             <button 
                                 type="button" 
                                 className="btn btn-primary"
                                 onClick={() => onSave()}
+                                disabled={itemSave}
                             >Сохранить</button>
                         </div>
                     </div>

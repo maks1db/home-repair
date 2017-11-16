@@ -27,19 +27,30 @@ export default {
             defaultValue: rooms[0],
             col: 6
         },
-        comment: {
+        shop: {
             type: 'string',
-            title: 'Комментарий',
+            title: 'Магазин',
             defaultValue: '',
-            hidden: true,
-            col: 6
+            col: 4
+        },
+        price: {
+            type: 'int',
+            title: 'Цена',
+            defaultValue: 0,
+            col: 4
         },
         rating: {
             type: 'int',
             title: 'Рейтинг',
-            col: 6,
+            col: 4,
             defaultValue: 0
         },
+        comment: {
+            type: 'string',
+            title: 'Комментарий',
+            defaultValue: '',
+            hidden: true
+        },    
         url: {
             type: 'string',
             title: 'Ссылка',

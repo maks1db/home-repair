@@ -5,7 +5,8 @@ import ImgView from './ImgView.jsx';
 import Img from './Controls/Img.jsx';
 
 const masonryOptions = {
-    transitionDuration: 0
+    transitionDuration: 0,
+    gutter: 20
 };
 
 export default class Gallery extends PureComponent {

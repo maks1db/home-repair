@@ -34,7 +34,8 @@ function mapStateToProps(state) {
         sort: state.app.get('sort').toJS(),
         path: state.routing.location.pathname,
         autorized: state.app.get('token') !== '',
-        CustomView: state.app.get('mainModel').custom
+        CustomView: state.app.get('mainModel').custom,
+        itemSave: state.app.get('itemSave')
     };
 }
 function mapDispatchToProps(dispatch, ownProps) {
@@ -87,7 +88,8 @@ export default class Layout extends Component {
             path,
             autorized,
             onLogout,
-            CustomView
+            CustomView,
+            itemSave
         } = this.props;
 
         return (
@@ -131,6 +133,7 @@ export default class Layout extends Component {
                     title={title} 
                     onSave={onSave}
                     onDelete={onDelete}
+                    itemSave={itemSave}
                 >
                     {(modelFields && modalOpen) && <EditorForm 
                         fields={modelFields}
