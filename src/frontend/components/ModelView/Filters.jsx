@@ -6,13 +6,17 @@ import styles from './Filters.scss';
 export default class Filters extends React.PureComponent {
 
     render() {
+
+        const {
+            filterItems
+        } = this.props;
         return (
             <div className="panel-group" id="accordion">
                 <div className="panel panel-default">
                     <div className="panel-heading">
                         <h4 className="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                Фильтры таблицы
+                                Фильтры {filterItems.length > 0 && `(${filterItems.length} поз.)`}
                             </a>
                         </h4>
                     </div>

@@ -10,8 +10,10 @@ const initialState = Map({
     items: {isFetching: false, data: []},
     filter: {
         items:  List([]),
-        query: Map({})      
+        query: Map({}),
+        sort: Map({})      
     },
+    itemSave: false,
     sort: Map({})
 });
 
@@ -21,10 +23,11 @@ export default (state = initialState, action) => {
         return setIn(state, ['modal', 'open'], action.value);
     case constants.SET_MAIN_MODEL: 
         return state.set('mainModel', action.model)
-            .set('sort', Map(action.model.sort))
+            .set('sort', Map(action.sort || action.model.sort))
             .set('filter', {
-                items:  List([]),
-                query: Map({})      
+                items:  List(action.items || []),
+                query: Map(action.query || {}),
+                sort: Map(action.sort || action.model.sort)     
             });
     case constants.SET_FILTER: 
         return state.set('filter', action.data);
@@ -57,6 +60,10 @@ export default (state = initialState, action) => {
         return state.set('sort', Map(action.sort));
     case constants.LOGIN_RECEIVE:
         return state.set('token', action.token);
+    case constants.SAVE_REQUEST:
+        return state.set('itemSave', true);
+    case constants.SAVE_COMPLETE:
+        return state.set('itemSave', false);
     }
     
     

@@ -1,5 +1,6 @@
 import constants from 'constants/appConstants';
 import { destroy } from 'redux-form';
+import { loadavg } from 'os';
 
 export default store => next => action => {
 
@@ -7,6 +8,7 @@ export default store => next => action => {
         const state = store.getState();
         const items = state.app.get('filter').items.toJS();
         const fields = state.app.get('mainModel').fields;
+        const name = state.app.get('mainModel').name;
         const values = state.form.filter.values;
         let obj = {};
 
@@ -37,7 +39,10 @@ export default store => next => action => {
                 }
             });
         }
-       
+        localStorage.setItem(`query_${name}`, JSON.stringify({
+            result: obj,
+            items, values
+        }));
         action.filter = obj;
         next(action);
 
@@ -46,6 +51,7 @@ export default store => next => action => {
         const state = store.getState();
         let sort = state.app.get('sort').toJS();
         const key = Object.keys(sort)[0];
+        const name = state.app.get('mainModel').name;
 
         if (key === action.key) {
             sort[key] = - sort[key];
@@ -54,6 +60,7 @@ export default store => next => action => {
             sort = {[action.key]: -1};
         }
 
+        localStorage.setItem(`sort_${name}`, JSON.stringify(sort));
         action.sort = sort;
         next(action);
     }

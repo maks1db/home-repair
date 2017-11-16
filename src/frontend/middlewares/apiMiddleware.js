@@ -1,6 +1,7 @@
 import constants from 'constants/appConstants';
 import api from 'api/crud';
 import { change } from 'redux-form';
+import { toastr } from 'react-redux-toastr';
 
 const form = 'model';
 
@@ -39,6 +40,8 @@ const apiMiddleware = store => next => action => {
                     store.dispatch({
                         type: constants.ITEMS_REQUEST
                     });
+
+                    toastr.success('Сохранено', 'Объект сохранен в базе данных...');
                 });
         }
         else {
@@ -51,6 +54,7 @@ const apiMiddleware = store => next => action => {
                     store.dispatch({
                         type: constants.ITEMS_REQUEST
                     });
+                    toastr.success('Сохранено', 'Объект сохранен в базе данных...');
                 });
         }
         
@@ -77,7 +81,7 @@ const apiMiddleware = store => next => action => {
     if (action.type === constants.ITEMS_REQUEST) {
         const state = store.getState();
         const model = state.app.get('mainModel');
-        const sort = state.app.get('sort');
+        const sort = state.app.get('sort').toJS();
         const crud = new api(`crud/${model.name}`); 
         const query = state.app.get('filter').query.toJS();
 
