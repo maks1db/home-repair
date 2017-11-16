@@ -5,6 +5,7 @@ const planModel = require('../models/plan');
 const ideaModel = require('../models/idea');
 const crud = require('../crud');
 const adminMiddleware = require('../middlewares/adminMiddleware');
+const ideaMiddleware = require('../middlewares/ideaMiddleware');
 
 const router = express.Router();
 
@@ -29,5 +30,9 @@ router.use('/repair', adminMiddleware, new crud(repairModel).init());
 router.use('/plan', adminMiddleware, new crud(planModel).init());
 const ideaCrud = new crud(ideaModel);
 
-router.use('/idea', [adminMiddleware, upload.single('img'), ideaCrud.init()]);
+router.use('/idea', [
+    adminMiddleware, 
+    upload.single('img'), 
+    ideaMiddleware, 
+    ideaCrud.init()]);
 module.exports = router;
