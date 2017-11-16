@@ -1,7 +1,7 @@
 let mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-const repair = new Schema({
+const plan = new Schema({
     name: String,
     room: String,
     shop: String,
@@ -10,4 +10,4 @@ const repair = new Schema({
     comment: String
 },{versionKey: false});
 
-module.exports = mongoose.model('plan', repair);
+module.exports = mongoose.model('plan', plan);
