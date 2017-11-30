@@ -35,7 +35,8 @@
     "react-input-mask": "^1.0.7",
     "eonasdan-bootstrap-datetimepicker": "4.17.47",
     "moment": "^2.19.1",
-    "react-masonry-component": "^6.0.1"
+    "react-masonry-component": "^6.0.1",
+    "redux-saga": "^0.16.0"
   },
   "devDependencies": {
     "eslint": "^4.7.0",
